@@ -9,15 +9,14 @@
  * Date: 20th Dec 2013
  *
  * Reference: http://www.dhtmlgoodies.com/tutorials/canvas-clock/
- * Took clock image from: http://www.dhtmlgoodies.com/tutorials/canvas-clock/images/Clock_Face_2_by_AGF81.png
  */
 
 (function ( $ ) {
   $.fn.canvasClock = function( options ) {
     var settings = $.extend({
-      showSecondsHand: true,
-      showMinutesHand: true,
-      showHoursHand: true,
+      showSecondHand: true,
+      showMinuteHand: true,
+      showHourHand: true,
       bgImgUrl: '/assets/canvas-clock/clock-face1.png'
     }, options );
 
@@ -106,11 +105,18 @@
           var theDate = new Date();
           canvasClock.context.clearRect(-canvasClock.canvas.width/2, -canvasClock.canvas.height/2, canvasClock.canvas.width, canvasClock.canvas.height);
           addBackgroundImage(canvasClock.canvas, canvasClock.context, clockImage);
+
           if(canvasClock.brandName)
             writeBrandName(canvasClock.context, canvasClock.brandName);
-          drawHourHand(canvasClock.context, theDate);
-          drawMinuteHand(canvasClock.context, theDate);
-          drawSecondHand(canvasClock.context, theDate);
+
+          if(canvasClock.showHourHand)
+            drawHourHand(canvasClock.context, theDate);
+
+          if(canvasClock.showMinuteHand)
+            drawMinuteHand(canvasClock.context, theDate);
+
+          if(canvasClock.showSecondHand)
+            drawSecondHand(canvasClock.context, theDate);
         }, 1000);
       }
       $(this).append(canvasClock.canvas);
